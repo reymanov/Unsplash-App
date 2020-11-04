@@ -32,11 +32,17 @@
     width: 100%;
     height: 40px;
     font-size: 1.2rem;
-    padding: 0 20px;
+    padding: 0 40px;
     border-radius: 5px;
-    background-color: rgb(251, 251, 251);
+    background-color: rgb(238, 238, 238);
     outline: none;
     border: none;
+}
+
+.search_icon{
+    position: absolute;
+    transform: translateY(10px) translateX(10px);
+    font-size: 1.2rem;
 }
 
 .photos_container{
@@ -57,5 +63,72 @@
 
 .photos_component{
     width: 100vw;
-    background-color: rgb(236, 236, 236);
+    background-color: rgb(255, 255, 255);
+}
+
+.modal_background{
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(34, 34, 34, 0.411);
+    position: fixed;
+    top: 0px;
+    display: flex;
+    justify-content: center;
+}
+
+
+.modal_container{
+    position: relative;
+    max-height: 70%;
+    margin-top: 10vh;
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.modal_textbox{
+    padding-left: 60px;
+}
+
+.modal_photo{
+    max-width: 90%;
+    max-height: 80%;
+    margin: auto;
+}
+
+.modal_author{
+    font-size: 1.8rem;
+    margin-top: 30px;
+}
+
+.modal_location{
+    font-size: 1.4rem;
+    font-weight: 300;
+    margin: 5px 20px;
+}
+
+.modal_button{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    font-size: 2rem;
+    border: none;
+    background: none;
+}
+
+.modal_button:hover{
+    cursor: pointer;
+}
+
+.icon{
+    font-size: 2rem;
+    position: absolute;
+    color: rgb(0, 0, 0);
+    padding: 5px;
+    margin: 10px;
+    box-sizing: content-box;
 }
