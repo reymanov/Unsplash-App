@@ -13,7 +13,19 @@ class Photos extends React.Component {
         'Nature',
         'Moutains',
         'Beach',
-        'Travel'
+        'Travel',
+        'Landscape',
+        'Iceland',
+        'Swiss',
+        'Airplane',
+        'Work',
+        'Friends',
+        'Canada',
+        'Africa',
+        'Belize',
+        'Hongkong',
+        'Taiwan',
+        'Architecture'
     ]
 
     state = {
@@ -67,17 +79,27 @@ class Photos extends React.Component {
         })
     }
 
+    suggestionSelect = (value) => {
+        this.setState({
+            photoName: value,
+            suggestions: [],
+        })
+
+        localStorage.setItem('photoName',value)
+    }
+    
     handleSubmit = (event) => {
         event.preventDefault();
         if (this.state.photoName.length >= 3) {
 
-            fetch(`https://api.unsplash.com/search/photos?per_page=20&query=${this.state.photoName}&client_id=${this.state.clientID}`)
+            fetch(`https://api.unsplash.com/search/photos?query=${localStorage.getItem('photoName')}&client_id=${this.state.clientID}`)
                 .then(res => res.json())
                 .then(data =>
                     this.setState({
                         photos: data,
                         photoName: '',
-                        redirectToPhotos: true
+                        redirectToPhotos: true,
+                        suggestions: [],
                     }))
 
             localStorage.setItem('photoName', this.state.photoName)
@@ -101,15 +123,7 @@ class Photos extends React.Component {
         })
     }
 
-    suggestionSelect = (value) => {
-        this.setState({
-            photoName: value,
-            suggestions: [],
-        })
-    }
-
     render() {
-
         return (
             <div className="photos_component">
                 <Link to='/'>

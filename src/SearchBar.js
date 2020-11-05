@@ -4,11 +4,11 @@ import './style.css';
 
 class SearchBar extends React.Component {
 
-    suggestionSelect = (item) => {
-        this.props.suggestionSelect(item)
+    handleSelection = (e,item) => {
+        this.props.suggestionSelect(item);
+        this.props.handleSubmit(e);
     }
-
-
+    
     informNoSuggestions() {
         if (this.props.noSuggestions === true) {
             return <ul className='suggestions_ul'>
@@ -26,7 +26,8 @@ class SearchBar extends React.Component {
             <ul className='suggestions_ul'>
                 {suggestions.map((item) => <li
                     className="suggestions_item"
-                    onClick={(event) => this.suggestionSelect(item)} key={item}>{item}
+                    onClick={(e) => this.handleSelection(e,item)}
+                    key={item}>{item}
                 </li>)}
             </ul>
         )

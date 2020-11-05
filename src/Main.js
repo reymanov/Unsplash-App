@@ -12,7 +12,19 @@ class Main extends React.Component {
         'Nature',
         'Moutains',
         'Beach',
-        'Travel'
+        'Travel',
+        'Landscape',
+        'Iceland',
+        'Swiss',
+        'Airplane',
+        'Work',
+        'Friends',
+        'Canada',
+        'Africa',
+        'Belize',
+        'Hongkong',
+        'Taiwan',
+        'Architecture'
     ]
 
     state = {
@@ -56,7 +68,10 @@ class Main extends React.Component {
             photoName: value,
             suggestions: [],
         })
+
+        localStorage.setItem('photoName',value)
     }
+
     handleSubmit = (event) => {
         event.preventDefault();
         if (this.state.photoName.length >= 3) {
@@ -67,10 +82,11 @@ class Main extends React.Component {
                     this.setState({
                         photos: data,
                         photoName: '',
-                        redirectToPhotos: true
+                        redirectToPhotos: true,
+                        suggestions: [],
                     }))
 
-            localStorage.setItem('photoName', this.state.photoName)
+            // localStorage.setItem('photoName', this.state.photoName)
         }
     }
 
