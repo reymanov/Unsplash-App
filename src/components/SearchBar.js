@@ -1,6 +1,6 @@
 import React from 'react'
 import { GoSearch } from 'react-icons/go'
-import './style.css';
+import '../style.css';
 
 class SearchBar extends React.Component {
 

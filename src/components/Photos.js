@@ -1,10 +1,11 @@
-import React from 'react'
+import React from 'react';
 import SearchBar from './SearchBar';
-import { Redirect } from 'react-router-dom'
-import './style.css';
-import MobileSVG from './Images/mobile.svg'
+import '../style.css';
+import Modal from './Modal';
+import { Link } from 'react-router-dom';
+import { FaHome } from 'react-icons/fa'
 
-class Main extends React.Component {
+class Photos extends React.Component {
     autocompleteItems = [
         'Dog',
         'Car',
@@ -28,14 +29,29 @@ class Main extends React.Component {
     ]
 
     state = {
-        photoName: '',
         clientID: 'CGJ2fNev_5sMed70cHIs7u9fKQZKeumnJkKpVPtxAKI',
         photos: {
             results: []
         },
-        redirectToPhotos: false,
+        photoName: '',
+        showModal: false,
+        photoModal: {
+            url: '',
+            author: '',
+            location: '',
+        },
         suggestions: [],
         noSuggestions: false,
+    }
+
+    componentDidMount() {
+
+        fetch(`https://api.unsplash.com/search/photos?per_page=10&query=${localStorage.getItem('photoName')}&client_id=${this.state.clientID}`)
+            .then(res => res.json())
+            .then(data =>
+                this.setState({
+                    photos: data,
+                }))
     }
 
     handleChange = (event) => {
@@ -76,7 +92,7 @@ class Main extends React.Component {
         event.preventDefault();
         if (this.state.photoName.length >= 3) {
 
-            fetch(`https://api.unsplash.com/search/photos?query=${this.state.photoName}&client_id=${this.state.clientID}`)
+            fetch(`https://api.unsplash.com/search/photos?query=${localStorage.getItem('photoName')}&client_id=${this.state.clientID}`)
                 .then(res => res.json())
                 .then(data =>
                     this.setState({
@@ -85,15 +101,34 @@ class Main extends React.Component {
                         redirectToPhotos: true,
                         suggestions: [],
                     }))
+
+            localStorage.setItem('photoName', this.state.photoName)
         }
     }
 
+    handleRenderModal = (photo) => {
+        this.setState({
+            showModal: true,
+            photoModal: {
+                url: photo.urls.regular,
+                author: photo.user.name,
+                location: photo.user.location
+            }
+        })
+    }
+
+    handleCloseModal = () => {
+        this.setState({
+            showModal: false
+        })
+    }
+
     render() {
-        if (this.state.redirectToPhotos === true) {
-            return <Redirect to="/photos" />
-        }
         return (
-            <div className='home_container'>
+            <div className="photos_component">
+                <Link to='/'>
+                    <FaHome className="icon" />
+                </Link>
                 <SearchBar
                     handleChange={this.handleChange}
                     handleSubmit={this.handleSubmit}
@@ -103,10 +138,27 @@ class Main extends React.Component {
                     noSuggestions={this.state.noSuggestions}
                     suggestionSelect={this.suggestionSelect}
                 />
-                <img src={MobileSVG} alt="mobilesvg" className="mobilesvg" />
+                {this.state.photos.results.length > 0 &&
+                    <div className="photos_container">
+                        {this.state.photos.results.map((photo) => {
+                            return <img
+                                key={photo.id}
+                                src={photo.urls.small}
+                                alt={photo.id}
+                                className="photo"
+                                onClick={() => this.handleRenderModal(photo)} />
+                        })}
+                    </div>}
+                {this.state.showModal === true &&
+                    <Modal
+                        handleCloseModal={this.handleCloseModal}
+                        photoModal={this.state.photoModal}
+                    />
+                }
             </div>
         )
     }
 }
 
-export default Main
+export default Photos;
+

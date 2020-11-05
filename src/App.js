@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import Main from './Main';
-import Photos from './Photos';
+import Main from './components/Main';
+import Photos from './components/Photos';
 
 function App() {
   return (
