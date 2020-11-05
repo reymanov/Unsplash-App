@@ -6,6 +6,15 @@ import { Link } from 'react-router-dom';
 import { FaHome } from 'react-icons/fa'
 
 class Photos extends React.Component {
+    autocompleteItems = [
+        'Dog',
+        'Car',
+        'Island',
+        'Nature',
+        'Moutains',
+        'Beach',
+        'Travel'
+    ]
 
     state = {
         clientID: 'CGJ2fNev_5sMed70cHIs7u9fKQZKeumnJkKpVPtxAKI',
@@ -18,7 +27,9 @@ class Photos extends React.Component {
             url: '',
             author: '',
             location: '',
-        }
+        },
+        suggestions: [],
+        noSuggestions: false,
     }
 
     componentDidMount() {
@@ -32,8 +43,27 @@ class Photos extends React.Component {
     }
 
     handleChange = (event) => {
+        const value = event.target.value;
+        let newSuggestions = [];
         this.setState({
-            photoName: event.target.value
+            noSuggestions: false
+        })
+
+        if (value.length >= 3) {
+            const regex = new RegExp(`^${value}`, 'i');
+            newSuggestions = this.autocompleteItems.sort().filter(v => regex.test(v));
+        }
+        
+        if(value.length >= 3 && newSuggestions.length === 0){
+            newSuggestions = [];
+            this.setState({
+                noSuggestions: true
+            })
+        }
+
+        this.setState({
+            photoName: event.target.value,
+            suggestions: newSuggestions
         })
     }
 
@@ -71,6 +101,13 @@ class Photos extends React.Component {
         })
     }
 
+    suggestionSelect = (value) => {
+        this.setState({
+            photoName: value,
+            suggestions: [],
+        })
+    }
+
     render() {
 
         return (
@@ -82,6 +119,10 @@ class Photos extends React.Component {
                     handleChange={this.handleChange}
                     handleSubmit={this.handleSubmit}
                     photoName={this.state.photoName}
+                    autocompleteItems={this.autocompleteItems}
+                    suggestions={this.state.suggestions}
+                    noSuggestions={this.state.noSuggestions}
+                    suggestionSelect={this.suggestionSelect}
                 />
                 {this.state.photos.results.length > 0 &&
                     <div className="photos_container">
