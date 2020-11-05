@@ -1,1 +1,1 @@
-# App to search photos using Unsplash API
+### App to search photos using Unsplash API
