@@ -49,8 +49,8 @@ class Main extends React.Component {
             const regex = new RegExp(`^${value}`, 'i');
             newSuggestions = this.autocompleteItems.sort().filter(v => regex.test(v));
         }
-        
-        if(value.length >= 3 && newSuggestions.length === 0){
+
+        if (value.length >= 3 && newSuggestions.length === 0) {
             newSuggestions = [];
             this.setState({
                 noSuggestions: true
@@ -69,7 +69,7 @@ class Main extends React.Component {
             suggestions: [],
         })
 
-        localStorage.setItem('photoName',value)
+        localStorage.setItem('photoName', value)
     }
 
     handleSubmit = (event) => {
@@ -85,8 +85,6 @@ class Main extends React.Component {
                         redirectToPhotos: true,
                         suggestions: [],
                     }))
-
-            // localStorage.setItem('photoName', this.state.photoName)
         }
     }
 

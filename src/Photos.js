@@ -65,8 +65,8 @@ class Photos extends React.Component {
             const regex = new RegExp(`^${value}`, 'i');
             newSuggestions = this.autocompleteItems.sort().filter(v => regex.test(v));
         }
-        
-        if(value.length >= 3 && newSuggestions.length === 0){
+
+        if (value.length >= 3 && newSuggestions.length === 0) {
             newSuggestions = [];
             this.setState({
                 noSuggestions: true
@@ -85,9 +85,9 @@ class Photos extends React.Component {
             suggestions: [],
         })
 
-        localStorage.setItem('photoName',value)
+        localStorage.setItem('photoName', value)
     }
-    
+
     handleSubmit = (event) => {
         event.preventDefault();
         if (this.state.photoName.length >= 3) {
@@ -127,7 +127,7 @@ class Photos extends React.Component {
         return (
             <div className="photos_component">
                 <Link to='/'>
-                    <FaHome className="icon"/>
+                    <FaHome className="icon" />
                 </Link>
                 <SearchBar
                     handleChange={this.handleChange}
