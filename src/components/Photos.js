@@ -84,15 +84,13 @@ class Photos extends React.Component {
             photoName: value,
             suggestions: [],
         })
-
-        localStorage.setItem('photoName', value)
     }
 
     handleSubmit = (event) => {
         event.preventDefault();
         if (this.state.photoName.length >= 3) {
 
-            fetch(`https://api.unsplash.com/search/photos?query=${localStorage.getItem('photoName')}&client_id=${this.state.clientID}`)
+            fetch(`https://api.unsplash.com/search/photos?query=${this.state.photoName}&client_id=${this.state.clientID}`)
                 .then(res => res.json())
                 .then(data =>
                     this.setState({
@@ -100,9 +98,8 @@ class Photos extends React.Component {
                         photoName: '',
                         redirectToPhotos: true,
                         suggestions: [],
+                        noSuggestions: true
                     }))
-
-            localStorage.setItem('photoName', this.state.photoName)
         }
     }
 

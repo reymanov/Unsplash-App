@@ -4,9 +4,9 @@ import '../style.css';
 
 class SearchBar extends React.Component {
 
-    handleSelection = (e, item) => {
-        this.props.suggestionSelect(item);
-        this.props.handleSubmit(e);
+   async handleSelection(e, item){
+        await this.props.suggestionSelect(item);
+        await this.props.handleSubmit(e);
     }
 
     informNoSuggestions() {
