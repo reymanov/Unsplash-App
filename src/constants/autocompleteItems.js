@@ -1,0 +1,22 @@
+// Replacement for a autosuggestions API
+export const autocompleteItems = [
+  "Dog",
+  "Car",
+  "Island",
+  "Nature",
+  "Mountains",
+  "Beach",
+  "Travel",
+  "Landscape",
+  "Iceland",
+  "Swiss",
+  "Airplane",
+  "Work",
+  "Friends",
+  "Canada",
+  "Africa",
+  "Belize",
+  "Hongkong",
+  "Taiwan",
+  "Architecture",
+];
